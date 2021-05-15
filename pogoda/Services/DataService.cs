@@ -54,7 +54,6 @@ namespace pogoda.Services
 
             try
             {
-                // Get the weather
                 Weather weather = await GetWeatherAsync($"{api}/id/12600");
                 ShowWeather(weather);
             }

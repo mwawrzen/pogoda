@@ -10,12 +10,6 @@ namespace pogoda.Services
     {
         public string id_stacji { get; set; }
         public string stacja { get; set; }
-        public string data_pomiaru { get; set; }
-        public string godzina_pomiaru { get; set; }
-        public string temperatura { get; set; }
-        public string predkosc_wiatru { get; set; }
-        public string wilgotnosc_wzgledna { get; set; }
-        public string cisnienie { get; set; }
     }
 
     class DataService
@@ -38,15 +32,17 @@ namespace pogoda.Services
             return weather;
         }
 
-        static void Main()
+        public static void Run()
         {
-            RunAsync().GetAwaiter().GetResult();
+            RunAsync();
         }
 
         static async Task RunAsync()
         {
-            string api = "https://danepubliczne.imgw.pl/api/data/synop/";
 
+            string api = "https://danepubliczne.imgw.pl/api/data/synop";
+
+            // Update port # in the following line.
             client.BaseAddress = new Uri(api);
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(
@@ -54,12 +50,14 @@ namespace pogoda.Services
 
             try
             {
-                Weather weather = await GetWeatherAsync($"{api}/id/12600");
+                Console.WriteLine("Getting data...");
+                // Get the product
+                Weather weather = await GetWeatherAsync(api + "/id/12295");
                 ShowWeather(weather);
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine("Error " + e.Message);
             }
 
             Console.ReadLine();

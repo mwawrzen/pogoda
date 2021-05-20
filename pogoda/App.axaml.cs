@@ -3,6 +3,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using pogoda.ViewModels;
 using pogoda.Views;
+using pogoda.Services;
 
 namespace pogoda
 {
@@ -10,6 +11,7 @@ namespace pogoda
     {
         public override void Initialize()
         {
+            DataService.GetWeather();
             AvaloniaXamlLoader.Load(this);
         }
 

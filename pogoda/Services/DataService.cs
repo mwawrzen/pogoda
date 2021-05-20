@@ -1,66 +1,44 @@
 ﻿using System;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
+using pogoda.Models;
 
 namespace pogoda.Services
 {
-    public class Weather
-    {
-        public string id_stacji { get; set; }
-        public string stacja { get; set; }
-    }
-
     class DataService
     {
-        static HttpClient client = new HttpClient();
+        const string API = "https://danepubliczne.imgw.pl/api/data/synop";
 
-        static void ShowWeather(Weather weather)
+        static void ShowDataObject(Weather[] weather)
         {
-            Console.WriteLine($"Nazwa stacji: {weather.stacja}");
+            foreach(Weather w in weather)
+            {
+                Console.WriteLine($"{w.stacja}");
+            }
         }
 
-        static async Task<Weather> GetWeatherAsync(string path)
+        public static async void GetWeather(string id = "")
         {
-            Weather weather = null;
-            HttpResponseMessage response = await client.GetAsync(path);
-            if (response.IsSuccessStatusCode)
+            HttpClient client = new HttpClient();
+
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            if (id != "")
             {
-                weather = await response.Content.ReadAsAsync<Weather>();
-            }
-            return weather;
-        }
-
-        public static void Run()
-        {
-            RunAsync();
-        }
-
-        static async Task RunAsync()
-        {
-
-            string api = "https://danepubliczne.imgw.pl/api/data/synop";
-
-            // Update port # in the following line.
-            client.BaseAddress = new Uri(api);
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
-
-            try
-            {
-                Console.WriteLine("Getting data...");
-                // Get the product
-                Weather weather = await GetWeatherAsync(api + "/id/12295");
-                ShowWeather(weather);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Error " + e.Message);
+                var responseMessage = await client.GetAsync($"{API}/id/{id}");
+                var resultArray = await responseMessage.Content.ReadAsStringAsync();
+                var weather = JsonConvert.DeserializeObject<Weather>(resultArray);
+                Console.WriteLine(weather);
             }
 
-            Console.ReadLine();
+            else
+            {
+                var responseMessage = await client.GetAsync(API);
+                var resultArray = await responseMessage.Content.ReadAsStringAsync();
+                var weather = JsonConvert.DeserializeObject<Weather[]>(resultArray);
+                ShowDataObject(weather);
+            }
         }
     }
 }

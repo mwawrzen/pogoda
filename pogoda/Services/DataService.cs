@@ -10,12 +10,36 @@ namespace pogoda.Services
     {
         const string API = "https://danepubliczne.imgw.pl/api/data/synop";
 
-        static void ShowDataObject(Weather[] weather)
+        static void ShowAllData(Weather[] weather)
         {
             foreach(Weather w in weather)
             {
-                Console.WriteLine($"{w.stacja}");
+                Console.WriteLine($@"Stacja: {w.stacja}
+
+    ID stacji:          {w.id_stacji}
+    Data pomiaru:       {w.data_pomiaru}
+    Godzina pomiaru:    {w.godzina_pomiaru}:00
+    Temperatura:        {w.temperatura} C
+    Prędkość wiatru:    {w.predkosc_wiatru} km/h (?)
+    Kierunek wiatru:    {w.kierunek_wiatru} stopni (?)
+    Suma opadu:         {w.suma_opadu} mm/rok (?)
+    Ciśnienie:          {w.cisnienie} hPa
+");
             }
+        }
+
+        static void ShowData(Weather weather)
+        {
+            Console.WriteLine($@"Stacja: {weather.stacja}
+
+    ID stacji:          {weather.id_stacji}
+    Data pomiaru:       {weather.data_pomiaru}
+    Godzina pomiaru:    {weather.godzina_pomiaru}:00
+    Temperatura:        {weather.temperatura} C
+    Prędkość wiatru:    {weather.predkosc_wiatru} km/h (?)
+    Kierunek wiatru:    {weather.kierunek_wiatru} stopni (?)
+    Suma opadu:         {weather.suma_opadu} mm/rok (?)
+    Ciśnienie:          {weather.cisnienie} hPa");
         }
 
         public static async void GetWeather(string id = "")
@@ -29,7 +53,7 @@ namespace pogoda.Services
                 var responseMessage = await client.GetAsync($"{API}/id/{id}");
                 var resultArray = await responseMessage.Content.ReadAsStringAsync();
                 var weather = JsonConvert.DeserializeObject<Weather>(resultArray);
-                Console.WriteLine(weather);
+                ShowData(weather);
             }
 
             else
@@ -37,7 +61,7 @@ namespace pogoda.Services
                 var responseMessage = await client.GetAsync(API);
                 var resultArray = await responseMessage.Content.ReadAsStringAsync();
                 var weather = JsonConvert.DeserializeObject<Weather[]>(resultArray);
-                ShowDataObject(weather);
+                ShowAllData(weather);
             }
         }
     }

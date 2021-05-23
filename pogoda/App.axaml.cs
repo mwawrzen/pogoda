@@ -1,4 +1,3 @@
-using System;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
@@ -20,6 +19,7 @@ namespace pogoda
         public async void GetWeatherData()
         {
             await DataService.GetWeather();
+
         }
 
         public override void OnFrameworkInitializationCompleted()

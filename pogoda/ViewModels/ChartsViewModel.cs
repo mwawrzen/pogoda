@@ -6,11 +6,20 @@ namespace pogoda.ViewModels
 {
     public class ChartsViewModel : ViewModelBase
     {
-        public void LoadData()
+        public ChartsViewModel()
         {
-            Items = DataService.DataList;
+            On = this;
         }
 
-        public List<Item> Items { get; set;  }
+        public void LoadData()
+        {
+            foreach(var obj in DataService.DataList)
+            {
+                Items.Add(obj);
+            }
+        }
+
+        public List<Weather> Items { get; set;  }
+        public static ViewModelBase On { get; set; }
     }
 }

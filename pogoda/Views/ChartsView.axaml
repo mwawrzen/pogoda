@@ -24,7 +24,7 @@
 				<ItemsControl.ItemTemplate>
 					<DataTemplate>
 						<Button Margin="4"
-								Content="{Binding Station}"
+								Content="{Binding stacja}"
 								Width="150"
 								Height="30"
 								HorizontalAlignment="Center"

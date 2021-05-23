@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using pogoda.Models;
 using pogoda.Services;
 using ReactiveUI;
@@ -17,6 +18,12 @@ namespace pogoda.ViewModels
         public void LoadData()
         {
             Items = DataService.DataList;
+        }
+
+        public void DisplayData()
+        {
+            if (DataService.CurrentData != null)
+                DataService.DisplayData(DataService.CurrentData);
         }
 
         public IEnumerable<Weather> Items

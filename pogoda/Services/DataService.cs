@@ -12,6 +12,7 @@ namespace pogoda.Services
     {
         const string API = "https://danepubliczne.imgw.pl/api/data/synop";
         public static List<Weather> DataList = new List<Weather>();
+        public static Weather? CurrentData = null;
 
         public static void DisplayAllData(Weather[] weather)
         {
@@ -69,7 +70,10 @@ namespace pogoda.Services
             foreach(var w in DataList)
             {
                 if (w.id_stacji == id)
+                {
+                    CurrentData = w;
                     return w;
+                }
             }
 
             return false;
@@ -80,7 +84,11 @@ namespace pogoda.Services
             foreach (var w in DataList)
             {
                 if (w.stacja == name)
+                {
+                    CurrentData = w;
                     return w;
+                }
+                    
             }
 
             return false;

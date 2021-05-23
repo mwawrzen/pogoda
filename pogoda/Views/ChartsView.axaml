@@ -25,6 +25,7 @@
 				<ItemsControl.ItemTemplate>
 					<DataTemplate>
 						<Button Content="{Binding stacja}"
+								Click="StationButtonClick"
 								Width="150"
 								Padding="3"
 								HorizontalContentAlignment="Center"

@@ -3,8 +3,6 @@ using pogoda.Models;
 using pogoda.Services;
 using ReactiveUI;
 
-using System;
-
 namespace pogoda.ViewModels
 {
     public class ChartsViewModel : ViewModelBase
@@ -19,11 +17,6 @@ namespace pogoda.ViewModels
         public void LoadData()
         {
             Items = DataService.DataList;
-        }
-
-        public static void OnButtonClick()
-        {
-            Console.WriteLine("hello.");
         }
 
         public IEnumerable<Weather> Items

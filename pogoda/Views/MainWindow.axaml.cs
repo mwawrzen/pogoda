@@ -8,6 +8,7 @@ namespace pogoda.Views
     {
         public MainWindow()
         {
+            
             InitializeComponent();
 #if DEBUG
             this.AttachDevTools();

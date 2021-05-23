@@ -1,5 +1,7 @@
 using ReactiveUI;
 
+using System;
+
 namespace pogoda.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase

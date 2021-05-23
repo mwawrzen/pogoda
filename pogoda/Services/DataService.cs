@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using pogoda.Models;
 
 namespace pogoda.Services
@@ -10,6 +11,7 @@ namespace pogoda.Services
     class DataService
     {
         const string API = "https://danepubliczne.imgw.pl/api/data/synop";
+        public static List<Weather> DataList = new List<Weather>();
 
         public static void DisplayAllData(Weather[] weather)
         {
@@ -30,7 +32,7 @@ namespace pogoda.Services
             }
         }
 
-        static void DisplayData(Weather weather)
+        public static void DisplayData(Weather weather)
         {
             Console.WriteLine($@"Stacja: {weather.stacja}
 
@@ -54,23 +56,46 @@ namespace pogoda.Services
             var responseMessage = await client.GetAsync(API);
             var resultArray = await responseMessage.Content.ReadAsStringAsync();
             var weather = JsonConvert.DeserializeObject<Weather[]>(resultArray);
-            DisplayAllData(weather);
+
+            DataList.AddRange(weather);
 
             return weather;
         }
 
-        public static async Task<Weather> GetWeatherById(string id)
+        public static dynamic GetWeatherById(string id)
         {
-            HttpClient client = new HttpClient();
+            foreach(var w in DataList)
+            {
+                if (w.id_stacji == id)
+                    return w;
+            }
 
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            return false;
+        }
 
-            var responseMessage = await client.GetAsync($"{API}/id/{id}");
-            var resultArray = await responseMessage.Content.ReadAsStringAsync();
-            var weather = JsonConvert.DeserializeObject<Weather>(resultArray);
-            DisplayData(weather);
+        public static dynamic GetWeatherByName(string name)
+        {
+            foreach (var w in DataList)
+            {
+                if (w.stacja == name)
+                    return w;
+            }
 
-            return weather;
+            return false;
+        }
+
+        public static dynamic SearchStation(string word)
+        {
+            List<Weather> data = new List<Weather>();
+            string phrase = word.ToLower();
+
+            foreach (var w in DataList)
+            {
+                if (w.stacja.ToLower().Contains(phrase))
+                    data.Add(w);
+            }
+
+            return data;
         }
     }
 }

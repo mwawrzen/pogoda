@@ -20,6 +20,12 @@ namespace pogoda
         public async void GetWeatherData()
         {
             await DataService.GetWeather();
+            var x = DataService.SearchStation("");
+
+            foreach(var i in x)
+            {
+                Console.WriteLine(i.stacja);
+            }
         }
 
         public override void OnFrameworkInitializationCompleted()

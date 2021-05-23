@@ -62,6 +62,7 @@ namespace pogoda.Services
             return weather;
         }
 
+
         public static dynamic GetWeatherById(string id)
         {
             foreach(var w in DataList)

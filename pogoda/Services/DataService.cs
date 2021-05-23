@@ -44,7 +44,8 @@ namespace pogoda.Services
     Kierunek wiatru:      {weather.kierunek_wiatru} stopni (?)
     Wilgotność względna:  {weather.wilgotnosc_wzgledna} (?)
     Suma opadu:           {weather.suma_opadu} mm/rok (?)
-    Ciśnienie:            {weather.cisnienie} hPa");
+    Ciśnienie:            {weather.cisnienie} hPa
+");
         }
 
         public static async Task<Weather[]> GetWeather()

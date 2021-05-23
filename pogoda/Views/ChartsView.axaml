@@ -16,19 +16,19 @@
 					   RelativePanel.AlignRightWithPanel="True"
 					   Margin="15, Auto" />
 			
-			<DropDown Items="{Binding Items}"
+			<DropDown x:Name="dp1"
+					  Items="{Binding Items}"
 					  RelativePanel.LeftOf="Date"
 					  Margin="6, Auto"
 					  MaxDropDownHeight="300"
 					  PlaceholderText="Stacja">
 				<ItemsControl.ItemTemplate>
 					<DataTemplate>
-						<Button Margin="4"
-								Content="{Binding stacja}"
+						<Button Content="{Binding stacja}"
 								Width="150"
-								Height="30"
-								HorizontalAlignment="Center"
-								HorizontalContentAlignment="Center" />
+								Padding="3"
+								HorizontalContentAlignment="Center"
+								HorizontalAlignment="Center" />
 					</DataTemplate>
 				</ItemsControl.ItemTemplate>
 			</DropDown>

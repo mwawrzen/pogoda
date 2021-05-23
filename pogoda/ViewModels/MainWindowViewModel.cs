@@ -1,10 +1,20 @@
-using System.Collections.Generic;
-using pogoda.Models;
+using ReactiveUI;
 
 namespace pogoda.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        public ViewModelBase Content => new ChartsViewModel();
+        ViewModelBase content;
+
+        public MainWindowViewModel()
+        {
+            Content = new ChartsViewModel();
+        }
+
+        public ViewModelBase Content
+        {
+            get => content;
+            private set => this.RaiseAndSetIfChanged(ref content, value);
+        }
     }
 }

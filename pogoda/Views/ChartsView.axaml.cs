@@ -15,8 +15,8 @@ namespace pogoda.Views
 
         public void StationButtonClick(object sender, RoutedEventArgs e)
         {
-            Button btn = (Button)sender;
-            string station_name = (string)btn.Content;
+            Button btn = (Button) sender;
+            string station_name = (string) btn.Content;
 
             DataService.DisplayData(DataService.GetWeatherByName(station_name));
         }

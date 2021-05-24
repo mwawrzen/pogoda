@@ -1,10 +1,12 @@
-using System;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using pogoda.ViewModels;
 using pogoda.Views;
 using pogoda.Services;
+
+using Avalonia.Controls;
+using System.Collections.Generic;
 
 namespace pogoda
 {
@@ -20,6 +22,7 @@ namespace pogoda
         public async void GetWeatherData()
         {
             await DataService.GetWeather();
+            ChartsViewModel.On.LoadData();
         }
 
         public override void OnFrameworkInitializationCompleted()

@@ -12,6 +12,7 @@ namespace pogoda.Services
     {
         const string API = "https://danepubliczne.imgw.pl/api/data/synop";
         public static List<Weather> DataList = new List<Weather>();
+        public static Weather? CurrentData = null;
 
         public static void DisplayAllData(Weather[] weather)
         {
@@ -44,7 +45,8 @@ namespace pogoda.Services
     Kierunek wiatru:      {weather.kierunek_wiatru} stopni (?)
     Wilgotność względna:  {weather.wilgotnosc_wzgledna} (?)
     Suma opadu:           {weather.suma_opadu} mm/rok (?)
-    Ciśnienie:            {weather.cisnienie} hPa");
+    Ciśnienie:            {weather.cisnienie} hPa
+");
         }
 
         public static async Task<Weather[]> GetWeather()
@@ -68,7 +70,10 @@ namespace pogoda.Services
             foreach(var w in DataList)
             {
                 if (w.id_stacji == id)
+                {
+                    CurrentData = w;
                     return w;
+                }
             }
 
             return false;
@@ -79,7 +84,11 @@ namespace pogoda.Services
             foreach (var w in DataList)
             {
                 if (w.stacja == name)
+                {
+                    CurrentData = w;
                     return w;
+                }
+                    
             }
 
             return false;

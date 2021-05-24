@@ -1,0 +1,116 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="pogoda.Views.ChartsView">
+
+	<DockPanel>
+		<Button Content="Wyświetl aktualne dane"
+				DockPanel.Dock="Bottom"
+				Foreground="#eeeeee"
+				Command="{Binding DisplayData}" />
+		<RelativePanel DockPanel.Dock="Top"
+					   Height="50"
+					   Background="#111111">
+			
+			<TextBlock x:Name="Date"
+					   Foreground="#ffffff"
+					   Text="12.05.2021 | 22:05"
+					   RelativePanel.AlignRightWithPanel="True"
+					   Margin="15, Auto" />
+			
+			<DropDown Items="{Binding Items}"
+					  RelativePanel.LeftOf="Date"
+					  Margin="6, Auto"
+					  MaxDropDownHeight="300"
+					  PlaceholderText="Stacja"
+					  MaxWidth="200">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<Button Content="{Binding stacja}"
+								Click="StationButtonClick"
+								Width="150"
+								Height="30"
+								Padding="3"
+								HorizontalContentAlignment="Center"
+								HorizontalAlignment="Center"
+								VerticalContentAlignment="Center">
+							<Button.Styles>
+								<Style Selector="Button /template/ ContentPresenter#PART_ContentPresenter">
+									<Setter Property="CornerRadius" Value="100"/>
+								</Style>
+							</Button.Styles>
+						</Button>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</DropDown>
+			
+		</RelativePanel>
+		<Grid DockPanel.Dock="Bottom"
+			  ColumnDefinitions="1*, 1*"
+			  RowDefinitions="3*, 3*, 1*, 4*, 1*, 4*, 1*"
+			  Margin="60, 40">
+
+			<Rectangle Fill="Gray"
+					   Grid.Row="0"
+					   Grid.Column="0"
+					   Grid.RowSpan="2"
+					   Margin="0, 0, 10, 0"/>
+
+			<Rectangle Fill="Gray"
+					   Grid.Row="0"
+					   Grid.Column="1"
+					   Grid.RowSpan="2"
+					   Margin="10, 0, 0, 0"/>
+
+			<Button Content="wyślij"
+					Grid.Row="2"
+					Grid.Column="0"
+					Background="LightBlue"
+					Width="70"
+					HorizontalContentAlignment="Center"/>
+
+			<Button Content="wyślij"
+					Grid.Row="2"
+					Grid.Column="2"
+					Margin="10, 0, 0, 0"
+					Background="LightBlue"
+					Width="70"
+					HorizontalContentAlignment="Center"/>
+
+			<Rectangle Fill="Gray"
+					   Grid.Row="3"
+					   Grid.Column="0"
+					   Margin="0, 5, 10, 0"/>
+
+			<Button Content="wyślij"
+					Grid.Row="4"
+					Grid.Column="0"
+					Background="LightBlue"
+					Width="70"
+					HorizontalContentAlignment="Center"/>
+
+			<Rectangle Fill="Gray"
+						Grid.Row="5"
+						Grid.Column="0"
+						Margin="0, 5, 10, 0"/>
+
+			<Button Content="wyślij"
+					Grid.Row="6"
+					Grid.Column="0"
+					Background="LightBlue"
+					Width="70"
+					HorizontalContentAlignment="Center"/>
+
+			<Rectangle Fill="Gray"
+					   Grid.Row="3"
+					   Grid.Column="2"
+					   Grid.RowSpan="3"
+					   Grid.ColumnSpan="2"
+					   Margin="10, 5, 0, 0"/>
+			
+		</Grid>
+	</DockPanel>
+	
+</UserControl>

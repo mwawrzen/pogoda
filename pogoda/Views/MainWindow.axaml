@@ -7,6 +7,6 @@
         x:Class="pogoda.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="pogoda"
-		Background="#222222"
+		Background="#333333"
 		Content="{Binding Content}">
 </Window>

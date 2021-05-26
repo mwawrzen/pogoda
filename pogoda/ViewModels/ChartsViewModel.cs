@@ -89,7 +89,7 @@ namespace pogoda.ViewModels
         {
             get => currentMoisture;
             private set => this.RaiseAndSetIfChanged(ref currentMoisture, value + "%");
-
+        }
         
         public PlotModel TemperaturePlotModel
         {

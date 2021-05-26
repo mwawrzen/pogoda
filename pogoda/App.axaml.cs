@@ -11,7 +11,6 @@ namespace pogoda
     {
         public override void Initialize()
         {
-            GetWeatherData();
             GetDate();
 
             AvaloniaXamlLoader.Load(this);
@@ -27,6 +26,7 @@ namespace pogoda
         public async void GetDate()
         {
             await DateService.GetDate();
+            GetWeatherData();
         }
 
         public override void OnFrameworkInitializationCompleted()

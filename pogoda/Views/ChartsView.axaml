@@ -1,9 +1,23 @@
-<UserControl xmlns="https://github.com/avaloniaui"
+<!--<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:local="using:pogoda.ViewModels"
+			 xmlns:avalonia="using:OxyPlot.Avalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="pogoda.Views.ChartsView">
+             x:Class="pogoda.Views.ChartsView">-->
+<UserControl xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="using:pogoda.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="pogoda.Views.ChartsView"
+		xmlns:avalonia="using:OxyPlot.Avalonia">
+
+	<UserControl.DataContext>
+		<local:ChartsViewModel/>
+	</UserControl.DataContext>
 
 	<DockPanel>
 		<Button Content="Wyświetl aktualne dane"
@@ -52,17 +66,17 @@
 			  RowDefinitions="3*, 3*, 1*, 4*, 1*, 4*, 1*"
 			  Margin="60, 40">
 
-			<Rectangle Fill="Gray"
-					   Grid.Row="0"
-					   Grid.Column="0"
-					   Grid.RowSpan="2"
-					   Margin="0, 0, 10, 0"/>
+			<avalonia:PlotView Model="{Binding TemperaturePlotModel}"
+							   Grid.Row="0"
+							   Grid.Column="0"
+							   Grid.RowSpan="2"
+							   Margin="0, 0, 10, 0"/>
 
-			<Rectangle Fill="Gray"
-					   Grid.Row="0"
-					   Grid.Column="1"
-					   Grid.RowSpan="2"
-					   Margin="10, 0, 0, 0"/>
+			<avalonia:PlotView Model="{Binding PressurePlotModel}"
+							   Grid.Row="0"
+							   Grid.Column="1"
+							   Grid.RowSpan="2"
+							   Margin="10, 0, 0, 0"/>
 
 			<Button Content="wyślij"
 					Grid.Row="2"
@@ -79,10 +93,11 @@
 					Width="70"
 					HorizontalContentAlignment="Center"/>
 
-			<Rectangle Fill="Gray"
-					   Grid.Row="3"
-					   Grid.Column="0"
-					   Margin="0, 5, 10, 0"/>
+			<avalonia:PlotView Model="{Binding MoisturePlotModel}"
+							   Grid.Row="3"
+							   Grid.Column="0"
+							   Margin="0, 5, 10, 0"/>
+			
 
 			<Button Content="wyślij"
 					Grid.Row="4"
@@ -91,10 +106,10 @@
 					Width="70"
 					HorizontalContentAlignment="Center"/>
 
-			<Rectangle Fill="Gray"
-						Grid.Row="5"
-						Grid.Column="0"
-						Margin="0, 5, 10, 0"/>
+			<avalonia:PlotView Model="{Binding WindSpeedPlotModel}"
+							   Grid.Row="5"
+							   Grid.Column="0"
+							   Margin="0, 5, 10, 0"/>
 
 			<Button Content="wyślij"
 					Grid.Row="6"
@@ -109,7 +124,7 @@
 					   Grid.RowSpan="3"
 					   Grid.ColumnSpan="2"
 					   Margin="10, 5, 0, 0"/>
-			
+
 		</Grid>
 	</DockPanel>
 	

@@ -9,7 +9,7 @@ namespace pogoda.Services
 {
     class DateService
     {
-        const string API = "http://worldtimeapi.org/api/timezone/Europe/Warsaw";
+        const string API = "http://api.timezonedb.com/v2.1/get-time-zone?format=json&key=XXG0IRO9WXI6&by=zone&zone=Europe/Warsaw";
         public static DateTime CurrentDate { get; private set; }
 
         public static async Task<DateTime> GetDate()
@@ -20,9 +20,9 @@ namespace pogoda.Services
 
             var responseMessage = await client.GetAsync(API);
             var resultArray = await responseMessage.Content.ReadAsStringAsync();
-            var date = JsonConvert.DeserializeObject<Date>(resultArray);
+            Date date = JsonConvert.DeserializeObject<Date>(resultArray);
 
-            string dateString = date.datetime;
+            string dateString = date.formatted;
             DateTime currDate = Convert.ToDateTime(dateString);
             CurrentDate = currDate;
 

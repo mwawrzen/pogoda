@@ -2,6 +2,7 @@
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
+using pogoda.Services;
 
 namespace pogoda.Services
 {
@@ -145,8 +146,11 @@ namespace pogoda.Services
 
         static DateTimeAxis SetDateTimeAxis()
         {
-            var startDate = DateTime.Today.AddDays(-8);
-            var endDate = DateTime.Today;
+            var today = DateService.CurrentDate;
+            var formattedDate = new DateTime(today.Year, today.Month, today.Day, 0, 0, 0);
+
+            var startDate = formattedDate.AddDays(-8);
+            var endDate = formattedDate;
 
             var minValue = DateTimeAxis.ToDouble(startDate);
             var maxValue = DateTimeAxis.ToDouble(endDate);

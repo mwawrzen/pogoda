@@ -4,6 +4,7 @@ using pogoda.Models;
 using pogoda.Services;
 using ReactiveUI;
 using OxyPlot;
+using System.Timers;
 
 namespace pogoda.ViewModels
 {
@@ -14,21 +15,45 @@ namespace pogoda.ViewModels
         PlotModel pressurePlotModel;
         PlotModel moisturePlotModel;
         PlotModel windSpeedPlotModel;
+
         string currentDate;
+        static DateTime currDate;
+
+        private static Timer aTimer;
 
         public ChartsViewModel()
         {
             On = this;
         }
 
+        public void SetTimer()
+        {
+            aTimer = new Timer(1000);
+            aTimer.Elapsed += OnTimedEvent;
+            aTimer.AutoReset = true;
+            aTimer.Enabled = true;
+        }
+
+        private static void OnTimedEvent(object source, ElapsedEventArgs e)
+        {
+            On.UpdateCurrentDate(currDate);
+            currDate = currDate.AddSeconds(1);
+        }
+
         public void LoadData()
         {
+            currDate = DateService.CurrentDate;
             Items = DataService.DataList;
             CurrentDate = DateService.CurrentDate.ToString("dd-MM-yyyy | HH:mm");
             TemperaturePlotModel = ChartService.RenderTemperatureChart();
             PressurePlotModel = ChartService.RenderPressureChart();
             MoisturePlotModel = ChartService.RenderMoistureChart();
             WindSpeedPlotModel = ChartService.RenderWindSpeedChart();
+        }
+
+        void UpdateCurrentDate(DateTime date)
+        {
+            CurrentDate = date.ToString("dd-MM-yyyy | HH:mm");
         }
 
         public void DisplayData()

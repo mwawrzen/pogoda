@@ -24,8 +24,7 @@ namespace pogoda.Services
     Data pomiaru:         {w.data_pomiaru}
     Godzina pomiaru:      {w.godzina_pomiaru}:00
     Temperatura:          {w.temperatura} C
-    Prędkość wiatru:      {w.predkosc_wiatru} km/h (?)
-    Kierunek wiatru:      {w.kierunek_wiatru} stopni (?)
+    Prędkość wiatru:      {w.predkosc_wiatru} B (skala Beauforta)
     Wilgotność względna:  {w.wilgotnosc_wzgledna} (?)
     Suma opadu:           {w.suma_opadu} mm/rok (?)
     Ciśnienie:            {w.cisnienie} hPa
@@ -41,8 +40,7 @@ namespace pogoda.Services
     Data pomiaru:         {weather.data_pomiaru}
     Godzina pomiaru:      {weather.godzina_pomiaru}:00
     Temperatura:          {weather.temperatura} C
-    Prędkość wiatru:      {weather.predkosc_wiatru} km/h (?)
-    Kierunek wiatru:      {weather.kierunek_wiatru} stopni (?)
+    Prędkość wiatru:      {weather.predkosc_wiatru} B (skala Beauforta)
     Wilgotność względna:  {weather.wilgotnosc_wzgledna} (?)
     Suma opadu:           {weather.suma_opadu} mm/rok (?)
     Ciśnienie:            {weather.cisnienie} hPa

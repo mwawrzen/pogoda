@@ -20,6 +20,10 @@
 	</UserControl.DataContext>
 
 	<DockPanel>
+		<Button Content="Wyświetl aktualne dane"
+				DockPanel.Dock="Bottom"
+				Foreground="#eeeeee"
+				Command="{Binding DisplayData}" />
 		<RelativePanel DockPanel.Dock="Top"
 					   Height="50"
 					   Background="#111111">

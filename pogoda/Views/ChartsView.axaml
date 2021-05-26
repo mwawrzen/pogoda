@@ -30,7 +30,7 @@
 			
 			<TextBlock x:Name="Date"
 					   Foreground="#ffffff"
-					   Text="12.05.2021 | 22:05"
+					   Text="{Binding CurrentDate}"
 					   RelativePanel.AlignRightWithPanel="True"
 					   Margin="15, Auto" />
 			

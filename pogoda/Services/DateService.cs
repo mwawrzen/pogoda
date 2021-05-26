@@ -10,6 +10,7 @@ namespace pogoda.Services
     class DateService
     {
         const string API = "http://worldtimeapi.org/api/timezone/Europe/Warsaw";
+        public static DateTime CurrentDate { get; private set; }
 
         public static async Task<DateTime> GetDate()
         {
@@ -23,6 +24,7 @@ namespace pogoda.Services
 
             string dateString = date.datetime;
             DateTime currDate = Convert.ToDateTime(dateString);
+            CurrentDate = currDate;
 
             return currDate;
         }

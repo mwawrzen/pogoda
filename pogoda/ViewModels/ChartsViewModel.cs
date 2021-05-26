@@ -14,6 +14,7 @@ namespace pogoda.ViewModels
         PlotModel pressurePlotModel;
         PlotModel moisturePlotModel;
         PlotModel windSpeedPlotModel;
+        string currentDate;
 
         public ChartsViewModel()
         {
@@ -23,6 +24,7 @@ namespace pogoda.ViewModels
         public void LoadData()
         {
             Items = DataService.DataList;
+            CurrentDate = DateService.CurrentDate.ToString("dd-MM-yyyy | HH:mm");
             TemperaturePlotModel = ChartService.RenderTemperatureChart();
             PressurePlotModel = ChartService.RenderPressureChart();
             MoisturePlotModel = ChartService.RenderMoistureChart();
@@ -63,6 +65,12 @@ namespace pogoda.ViewModels
         {
             get => windSpeedPlotModel;
             private set => this.RaiseAndSetIfChanged(ref windSpeedPlotModel, value);
+        }
+
+        public string CurrentDate
+        {
+            get => currentDate;
+            private set => this.RaiseAndSetIfChanged(ref currentDate, value);
         }
 
         public static ChartsViewModel On;

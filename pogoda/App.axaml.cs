@@ -12,6 +12,7 @@ namespace pogoda
         public override void Initialize()
         {
             GetWeatherData();
+            GetDate();
 
             AvaloniaXamlLoader.Load(this);
         }

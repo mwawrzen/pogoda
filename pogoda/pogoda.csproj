@@ -13,5 +13,6 @@
     <PackageReference Include="Avalonia.Diagnostics" Version="0.10.3" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.3" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
+    <PackageReference Include="OxyPlot.Avalonia" Version="2.1.0-20201211.2" />
   </ItemGroup>
 </Project>

@@ -5,16 +5,13 @@ using pogoda.ViewModels;
 using pogoda.Views;
 using pogoda.Services;
 
-using Avalonia.Controls;
-using System.Collections.Generic;
-
 namespace pogoda
 {
     public class App : Application
     {
         public override void Initialize()
         {
-            GetWeatherData();
+            GetDate();
 
             AvaloniaXamlLoader.Load(this);
         }
@@ -22,7 +19,14 @@ namespace pogoda
         public async void GetWeatherData()
         {
             await DataService.GetWeather();
+            DataService.CurrentData = DataService.GetWeatherByName("Kraków");
             ChartsViewModel.On.LoadData();
+        }
+
+        public async void GetDate()
+        {
+            await DateService.GetDate();
+            GetWeatherData();
         }
 
         public override void OnFrameworkInitializationCompleted()

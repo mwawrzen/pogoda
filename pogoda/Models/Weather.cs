@@ -1,6 +1,4 @@
-﻿
-
-namespace pogoda.Models
+﻿namespace pogoda.Models
 {
     public class Weather
     {
@@ -10,7 +8,6 @@ namespace pogoda.Models
         public string? godzina_pomiaru { get; set; }
         public string? temperatura { get; set; }
         public string? predkosc_wiatru { get; set; }
-        public string? kierunek_wiatru { get; set; }
         public string? wilgotnosc_wzgledna { get; set; }
         public string? suma_opadu { get; set; }
         public string? cisnienie { get; set; }

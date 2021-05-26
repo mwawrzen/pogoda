@@ -3,17 +3,26 @@ using System.Collections.Generic;
 using pogoda.Models;
 using pogoda.Services;
 using ReactiveUI;
+using OxyPlot;
 
 namespace pogoda.ViewModels
 {
     public class ChartsViewModel : ViewModelBase
     {
         IEnumerable<Weather> items;
+
         string? currentStationName;
         string? currentTemperature;
         string? currentPressure;
         string? currentWindSpeed;
         string? currentMoisture;
+
+        PlotModel temperaturePlotModel;
+        PlotModel pressurePlotModel;
+        PlotModel moisturePlotModel;
+        PlotModel windSpeedPlotModel;
+        string currentDate;
+
 
         public ChartsViewModel()
         {
@@ -23,6 +32,11 @@ namespace pogoda.ViewModels
         public void LoadData()
         {
             Items = DataService.DataList;
+            CurrentDate = DateService.CurrentDate.ToString("dd-MM-yyyy | HH:mm");
+            TemperaturePlotModel = ChartService.RenderTemperatureChart();
+            PressurePlotModel = ChartService.RenderPressureChart();
+            MoisturePlotModel = ChartService.RenderMoistureChart();
+            WindSpeedPlotModel = ChartService.RenderWindSpeedChart();
         }
 
         public void LoadStationData()
@@ -45,6 +59,7 @@ namespace pogoda.ViewModels
             get => items;
             private set => this.RaiseAndSetIfChanged(ref items, value);
         }
+
 
         public string? CurrentStationName
         {
@@ -74,6 +89,37 @@ namespace pogoda.ViewModels
         {
             get => currentMoisture;
             private set => this.RaiseAndSetIfChanged(ref currentMoisture, value + "%");
+
+        
+        public PlotModel TemperaturePlotModel
+        {
+            get => temperaturePlotModel;
+            private set => this.RaiseAndSetIfChanged(ref temperaturePlotModel, value);
+        }
+
+        public PlotModel PressurePlotModel
+        {
+            get => pressurePlotModel;
+            private set => this.RaiseAndSetIfChanged(ref pressurePlotModel, value);
+        }
+
+        public PlotModel MoisturePlotModel
+        {
+            get => moisturePlotModel;
+            private set => this.RaiseAndSetIfChanged(ref moisturePlotModel, value);
+        }
+
+        public PlotModel WindSpeedPlotModel
+        {
+            get => windSpeedPlotModel;
+            private set => this.RaiseAndSetIfChanged(ref windSpeedPlotModel, value);
+        }
+
+        public string CurrentDate
+        {
+            get => currentDate;
+            private set => this.RaiseAndSetIfChanged(ref currentDate, value);
+
         }
 
         public static ChartsViewModel On;

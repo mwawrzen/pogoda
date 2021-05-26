@@ -1,6 +1,4 @@
-﻿
-
-namespace pogoda.Models
+﻿namespace pogoda.Models
 {
     public class Weather
     {

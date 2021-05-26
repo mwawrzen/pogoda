@@ -11,7 +11,7 @@ namespace pogoda
     {
         public override void Initialize()
         {
-            GetWeatherData();
+            GetDate();
 
             AvaloniaXamlLoader.Load(this);
         }
@@ -21,6 +21,12 @@ namespace pogoda
             await DataService.GetWeather();
             DataService.CurrentData = DataService.GetWeatherByName("Kraków");
             ChartsViewModel.On.LoadData();
+        }
+
+        public async void GetDate()
+        {
+            await DateService.GetDate();
+            GetWeatherData();
         }
 
         public override void OnFrameworkInitializationCompleted()

@@ -2,6 +2,6 @@
 {
     public class Date
     {
-        public string? datetime { get; set; }
+        public string? formatted { get; set; }
     }
 }

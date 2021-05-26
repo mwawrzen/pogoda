@@ -89,6 +89,7 @@
 					Grid.Column="0"
 					Background="LightBlue"
 					Width="70"
+					Foreground="Black"
 					HorizontalContentAlignment="Center"/>
 
 			<Button Content="wyślij"
@@ -97,6 +98,7 @@
 					Margin="10, 0, 0, 0"
 					Background="LightBlue"
 					Width="70"
+					Foreground="Black"
 					HorizontalContentAlignment="Center"/>
 
 			<avalonia:PlotView Model="{Binding MoisturePlotModel}"
@@ -110,6 +112,7 @@
 					Grid.Column="0"
 					Background="LightBlue"
 					Width="70"
+					Foreground="Black"
 					HorizontalContentAlignment="Center"/>
 
 			<avalonia:PlotView Model="{Binding WindSpeedPlotModel}"
@@ -122,6 +125,7 @@
 					Grid.Column="0"
 					Background="LightBlue"
 					Width="70"
+					Foreground="Black"
 					HorizontalContentAlignment="Center"/>
 
 			<Grid Grid.Row="3"

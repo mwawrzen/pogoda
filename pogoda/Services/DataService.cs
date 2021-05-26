@@ -26,7 +26,6 @@ namespace pogoda.Services
     Temperatura:          {w.temperatura} C
     Prędkość wiatru:      {w.predkosc_wiatru} B (skala Beauforta)
     Wilgotność względna:  {w.wilgotnosc_wzgledna} (?)
-    Suma opadu:           {w.suma_opadu} mm/rok (?)
     Ciśnienie:            {w.cisnienie} hPa
 ");
             }
@@ -42,7 +41,6 @@ namespace pogoda.Services
     Temperatura:          {weather.temperatura} C
     Prędkość wiatru:      {weather.predkosc_wiatru} B (skala Beauforta)
     Wilgotność względna:  {weather.wilgotnosc_wzgledna} (?)
-    Suma opadu:           {weather.suma_opadu} mm/rok (?)
     Ciśnienie:            {weather.cisnienie} hPa
 ");
         }

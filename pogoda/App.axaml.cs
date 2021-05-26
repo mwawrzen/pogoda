@@ -23,6 +23,11 @@ namespace pogoda
             ChartsViewModel.On.LoadData();
         }
 
+        public async void GetDate()
+        {
+            await DateService.GetDate();
+        }
+
         public override void OnFrameworkInitializationCompleted()
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)

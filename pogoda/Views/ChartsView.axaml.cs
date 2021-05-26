@@ -1,4 +1,5 @@
 using System;
+using pogoda.ViewModels;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Interactivity;
@@ -18,7 +19,9 @@ namespace pogoda.Views
             Button btn = (Button) sender;
             string station_name = (string) btn.Content;
 
-            DataService.DisplayData(DataService.GetWeatherByName(station_name));
+            DataService.GetWeatherByName(station_name);
+            DataService.DisplayData(DataService.CurrentData);
+            ChartsViewModel.On.LoadStationData();
         }
 
 

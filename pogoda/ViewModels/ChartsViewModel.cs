@@ -62,21 +62,21 @@ namespace pogoda.ViewModels
         void UpdateCurrentDate(DateTime date)
         {
             CurrentDate = date.ToString("dd-MM-yyyy | HH:mm");
-
-        public void LoadStationData()
-        {
-            CurrentStationName = DataService.CurrentData != null ? DataService.CurrentData.stacja : "";
-            CurrentTemperature = DataService.CurrentData != null ? DataService.CurrentData.temperatura : "";
-            CurrentPressure = DataService.CurrentData != null ? DataService.CurrentData.cisnienie : "";
-            CurrentWindSpeed = DataService.CurrentData != null ? DataService.CurrentData.predkosc_wiatru : "";
-            CurrentMoisture = DataService.CurrentData != null ? DataService.CurrentData.wilgotnosc_wzgledna : "";
         }
+            public void LoadStationData()
+            {
+                CurrentStationName = DataService.CurrentData != null ? DataService.CurrentData.stacja : "";
+                CurrentTemperature = DataService.CurrentData != null ? DataService.CurrentData.temperatura : "";
+                CurrentPressure = DataService.CurrentData != null ? DataService.CurrentData.cisnienie : "";
+                CurrentWindSpeed = DataService.CurrentData != null ? DataService.CurrentData.predkosc_wiatru : "";
+                CurrentMoisture = DataService.CurrentData != null ? DataService.CurrentData.wilgotnosc_wzgledna : "";
+            }
 
-        public void DisplayData()
-        {
-            if (DataService.CurrentData != null)
-                DataService.DisplayData(DataService.CurrentData);
-        }
+            public void DisplayData()
+            {
+                if (DataService.CurrentData != null)
+                    DataService.DisplayData(DataService.CurrentData);
+            }
 
         public IEnumerable<Weather> Items
         {

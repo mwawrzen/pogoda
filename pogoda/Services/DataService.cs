@@ -14,6 +14,8 @@ namespace pogoda.Services
         public static List<Weather> DataList = new List<Weather>();
         public static Weather? CurrentData = null;
 
+        static List<StationMeasurement> measurements;
+
         public static void DisplayAllData(Weather[] weather)
         {
             foreach (Weather w in weather)
@@ -57,8 +59,52 @@ namespace pogoda.Services
 
             DataList.AddRange(weather);
 
+            DisplayAllData(weather);
+
             return weather;
         }
+
+        /*public static void SaveDataToDatabase()
+        {
+            var dbData = DatabaseService.Get();
+
+            foreach (var w in DataList)
+            {
+                if (w.stacja == CurrentData.stacja) continue;
+
+                double temperature = Convert.ToDouble(w.temperatura.Replace(".", ","));
+                double cisnienie;
+                if (w.cisnienie == null)
+                    cisnienie = 0;
+                else
+                    cisnienie = Convert.ToDouble(w.cisnienie.Replace(".", ","));
+                double wilgotnosc = Convert.ToDouble(w.wilgotnosc_wzgledna.Replace(".", ","));
+                double predkosc = Convert.ToDouble(w.predkosc_wiatru.Replace(".", ","));
+
+                StationMeasurement stationMeasurement = new StationMeasurement
+                {
+                    station = w.stacja,
+                    temperature = new List<Measurement>(),
+                    pressure = new List<Measurement>(),
+                    moisture = new List<Measurement>(),
+                    windSpeed = new List<Measurement>()
+                };
+
+                Measurement temperatureMeasurement = new Measurement { day = w.data_pomiaru, value = temperature };
+                Measurement pressureMeasurement = new Measurement { day = w.data_pomiaru, value = cisnienie };
+                Measurement moistureMeasurement = new Measurement { day = w.data_pomiaru, value = wilgotnosc };
+                Measurement windSpeedMeasurement = new Measurement { day = w.data_pomiaru, value = predkosc };
+
+                stationMeasurement.temperature.Add(temperatureMeasurement);
+                stationMeasurement.pressure.Add(pressureMeasurement);
+                stationMeasurement.moisture.Add(moistureMeasurement);
+                stationMeasurement.windSpeed.Add(windSpeedMeasurement);
+
+                dbData.Add(stationMeasurement);
+            }
+
+            DatabaseService.Save(dbData);
+        }*/
 
 
         public static dynamic GetWeatherById(string id)

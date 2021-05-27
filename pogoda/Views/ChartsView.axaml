@@ -84,22 +84,26 @@
 							   Grid.RowSpan="2"
 							   Margin="10, 0, 0, 0"/>
 
-			<Button Content="wyślij"
+			<Button x:Name="Temperature"
+				    Content="wyślij"
 					Grid.Row="2"
 					Grid.Column="0"
 					Background="LightBlue"
 					Width="70"
 					Foreground="Black"
-					HorizontalContentAlignment="Center"/>
+					HorizontalContentAlignment="Center"
+					Click="CommunicationButtonClick"/>
 
-			<Button Content="wyślij"
+			<Button x:Name="Pressure"
+				    Content="wyślij"
 					Grid.Row="2"
 					Grid.Column="2"
 					Margin="10, 0, 0, 0"
 					Background="LightBlue"
 					Width="70"
 					Foreground="Black"
-					HorizontalContentAlignment="Center"/>
+					HorizontalContentAlignment="Center"
+					Click="CommunicationButtonClick"/>
 
 			<avalonia:PlotView Model="{Binding MoisturePlotModel}"
 							   Grid.Row="3"
@@ -107,26 +111,30 @@
 							   Margin="0, 5, 10, 0"/>
 			
 
-			<Button Content="wyślij"
+			<Button x:Name="Moisture"
+				    Content="wyślij"
 					Grid.Row="4"
 					Grid.Column="0"
 					Background="LightBlue"
 					Width="70"
 					Foreground="Black"
-					HorizontalContentAlignment="Center"/>
+					HorizontalContentAlignment="Center"
+					Click="CommunicationButtonClick"/>
 
 			<avalonia:PlotView Model="{Binding WindSpeedPlotModel}"
 							   Grid.Row="5"
 							   Grid.Column="0"
 							   Margin="0, 5, 10, 0"/>
 
-			<Button Content="wyślij"
+			<Button x:Name="WindSpeed"
+				    Content="wyślij"
 					Grid.Row="6"
 					Grid.Column="0"
 					Background="LightBlue"
 					Width="70"
 					Foreground="Black"
-					HorizontalContentAlignment="Center"/>
+					HorizontalContentAlignment="Center"
+					Click="CommunicationButtonClick"/>
 
 			<Grid Grid.Row="3"
 				  Grid.Column="2"

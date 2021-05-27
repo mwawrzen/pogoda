@@ -24,6 +24,31 @@ namespace pogoda.Views
             ChartsViewModel.On.LoadStationData();
         }
 
+        public void CommunicationButtonClick(object sender, RoutedEventArgs e)
+        {
+            Button btn = (Button) sender;
+            string? buttonName = btn.Name;
+
+            string message = "";
+            switch(buttonName)
+            {
+                case "Temperature":
+                    message = $"Temperatura {DataService.CurrentData.temperatura}";
+                    break;
+                case "Pressure":
+                    message = $"Ciœnienie {DataService.CurrentData.cisnienie}";
+                    break;
+                case "Moisture":
+                    message = $"Wilgotnoœæ {DataService.CurrentData.wilgotnosc_wzgledna}";
+                    break;
+                case "WindSpeed":
+                    message = $"Prêdkoœæ wiatru {DataService.CurrentData.predkosc_wiatru}";
+                    break;
+            }
+
+            Console.WriteLine(message);
+            CommunicationService.Connect(message);
+        }
 
         private void InitializeComponent()
         {

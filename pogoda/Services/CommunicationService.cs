@@ -23,6 +23,7 @@ namespace pogoda.Services
                 Port = new SerialPort(Ports[0], 9600, Parity.None, 8, StopBits.One);
                 Port.Open();
                 Port.Write(message);
+                Port.Close();
             }
 
             else

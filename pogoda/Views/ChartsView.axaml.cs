@@ -24,7 +24,8 @@ namespace pogoda.Views
             ChartsViewModel.On.LoadData();
             ChartsViewModel.On.LoadStationData();
 
-            Console.WriteLine("Liczba: " + DatabaseService.Get().Count);
+            DropDown dp = this.FindControl<DropDown>("StationList");
+            dp.IsDropDownOpen = false;
         }
 
         public void CommunicationButtonClick(object sender, RoutedEventArgs e)

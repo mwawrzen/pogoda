@@ -33,16 +33,16 @@ namespace pogoda.Views
             switch(buttonName)
             {
                 case "Temperature":
-                    message = $"Temperatura {DataService.CurrentData.temperatura}";
+                    message = $"Temperatura {DataService.CurrentData.temperatura}C";
                     break;
                 case "Pressure":
-                    message = $"Ciœnienie {DataService.CurrentData.cisnienie}";
+                    message = $"Cisnienie {DataService.CurrentData.cisnienie}hPa";
                     break;
                 case "Moisture":
-                    message = $"Wilgotnoœæ {DataService.CurrentData.wilgotnosc_wzgledna}";
+                    message = $"Wilgotnosc {DataService.CurrentData.wilgotnosc_wzgledna}%";
                     break;
                 case "WindSpeed":
-                    message = $"Prêdkoœæ wiatru {DataService.CurrentData.predkosc_wiatru}";
+                    message = $"Predkosc wiatru {DataService.CurrentData.predkosc_wiatru}B";
                     break;
             }
 

@@ -14,6 +14,8 @@ namespace pogoda.Services
         public static List<Weather> DataList = new List<Weather>();
         public static Weather? CurrentData = null;
 
+        static List<StationMeasurement> measurements;
+
         public static void DisplayAllData(Weather[] weather)
         {
             foreach (Weather w in weather)
@@ -26,7 +28,6 @@ namespace pogoda.Services
     Temperatura:          {w.temperatura} C
     Prędkość wiatru:      {w.predkosc_wiatru} B (skala Beauforta)
     Wilgotność względna:  {w.wilgotnosc_wzgledna} (?)
-    Suma opadu:           {w.suma_opadu} mm/rok (?)
     Ciśnienie:            {w.cisnienie} hPa
 ");
             }
@@ -42,7 +43,6 @@ namespace pogoda.Services
     Temperatura:          {weather.temperatura} C
     Prędkość wiatru:      {weather.predkosc_wiatru} B (skala Beauforta)
     Wilgotność względna:  {weather.wilgotnosc_wzgledna} (?)
-    Suma opadu:           {weather.suma_opadu} mm/rok (?)
     Ciśnienie:            {weather.cisnienie} hPa
 ");
         }
@@ -59,9 +59,10 @@ namespace pogoda.Services
 
             DataList.AddRange(weather);
 
+            DisplayAllData(weather);
+
             return weather;
         }
-
 
         public static dynamic GetWeatherById(string id)
         {

@@ -1,3 +1,5 @@
+using System;
+using System.Timers;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
@@ -9,6 +11,29 @@ namespace pogoda
 {
     public class App : Application
     {
+        private static Timer aTimer;
+        static DateTime currDate;
+
+        public void SetTimer()
+        {
+            aTimer = new Timer(1000);
+            aTimer.Elapsed += OnTimedEvent;
+            aTimer.AutoReset = true;
+            aTimer.Enabled = true;
+        }
+
+        private async void OnTimedEvent(object source, ElapsedEventArgs e)
+        {
+            currDate = currDate.AddSeconds(1);
+            if ((currDate.Minute == 30 || currDate.Minute == 36) && currDate.Second == 0)
+            {
+                DateService.CurrentDate = new DateTime(2021, 5, 28);
+                //await DateService.GetDate();
+                await DataService.GetWeather();
+                DatabaseService.SaveDataToDatabase();
+            }
+        }
+
         public override void Initialize()
         {
             GetDate();
@@ -20,7 +45,14 @@ namespace pogoda
         {
             await DataService.GetWeather();
             DataService.CurrentData = DataService.GetWeatherByName("Kraków");
+            currDate = DateService.CurrentDate;
+            SetTimer();
+
+            DatabaseService.SaveDataToDatabase();
+
+            ChartService.SetMeasurements();
             ChartsViewModel.On.LoadData();
+            ChartsViewModel.On.LoadStationData();
         }
 
         public async void GetDate()

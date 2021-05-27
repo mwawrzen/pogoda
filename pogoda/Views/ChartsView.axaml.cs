@@ -17,11 +17,14 @@ namespace pogoda.Views
         public void StationButtonClick(object sender, RoutedEventArgs e)
         {
             Button btn = (Button) sender;
-            string station_name = (string) btn.Content;
+            string stationName = (string) btn.Content;
 
-            DataService.GetWeatherByName(station_name);
-            DataService.DisplayData(DataService.CurrentData);
+            DataService.GetWeatherByName(stationName);
+            ChartService.SetMeasurements();
+            ChartsViewModel.On.LoadData();
             ChartsViewModel.On.LoadStationData();
+
+            Console.WriteLine("Liczba: " + DatabaseService.Get().Count);
         }
 
         public void CommunicationButtonClick(object sender, RoutedEventArgs e)

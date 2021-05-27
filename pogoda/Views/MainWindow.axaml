@@ -9,4 +9,10 @@
         Title="pogoda"
 		Background="#333333"
 		Content="{Binding Content}">
+
+	<Window.Background>
+		<ImageBrush Source="/Assets/gradient.jpg"
+					Stretch="UniformToFill"/>
+	</Window.Background>
 </Window>
+

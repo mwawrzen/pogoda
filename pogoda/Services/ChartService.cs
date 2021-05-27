@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
@@ -8,136 +9,133 @@ namespace pogoda.Services
 {
     class ChartService
     {
-        static DateTime date = DateService.CurrentDate;
-        static DateTime midnight = new DateTime(date.Year, date.Month, date.Day, 0, 0, 0);
+        static Weather? data;
+        static DateTime date;
+        static DateTime midnight;
+        static List<StationMeasurement>? measurements;
 
-        static Weather data = DataService.CurrentData;
+        public static void SetMeasurements()
+        {
+            measurements = DatabaseService.Get();
+        }
+
+        public static void LoadData()
+        {
+            data = DataService.CurrentData;
+            date = DateService.CurrentDate;
+            midnight = new DateTime(date.Year, date.Month, date.Day, 0, 0, 0);
+        }
 
         public static PlotModel RenderTemperatureChart()
         {
+            LoadData();
+
             var model = new PlotModel { Title = "Temperatura (\u2103)" };
 
-            LinearAxis la = SetLinearAxis();
-            la.Minimum = -15;
-            la.Maximum = 30;
-
-            model.Axes.Add(la);
+            SetLinearAxis(ref model, -15, 30);
 
             model.Axes.Add(SetDateTimeAxis());
 
-            string valToConvert = data.temperatura.Replace(".", ",");
-            double val = Convert.ToDouble(valToConvert);
-
-            FunctionSeries fs = new FunctionSeries();
-
-            /*fs.Points.Add(new DataPoint(DateTimeAxis.ToDouble(midnight.AddDays(-8)), 0));
-            fs.Points.Add(new DataPoint(DateTimeAxis.ToDouble(midnight.AddDays(-7)), 0));
-            fs.Points.Add(new DataPoint(DateTimeAxis.ToDouble(midnight.AddDays(-6)), 0));
-            fs.Points.Add(new DataPoint(DateTimeAxis.ToDouble(midnight.AddDays(-5)), 0));
-            fs.Points.Add(new DataPoint(DateTimeAxis.ToDouble(midnight.AddDays(-4)), 0));
-            fs.Points.Add(new DataPoint(DateTimeAxis.ToDouble(midnight.AddDays(-3)), 0));
-            fs.Points.Add(new DataPoint(DateTimeAxis.ToDouble(midnight.AddDays(-2)), 0));
-            fs.Points.Add(new DataPoint(DateTimeAxis.ToDouble(midnight.AddDays(-1)), 0));*/
-            fs.Points.Add(new DataPoint(DateTimeAxis.ToDouble(midnight.AddHours(-5)), val));
-            fs.Points.Add(new DataPoint(DateTimeAxis.ToDouble(midnight), val));
-
-            model.Series.Add(fs);
+            if (measurements != null)
+            {
+                foreach (var measurement in measurements)
+                {
+                    if (measurement.station == data.stacja)
+                    {
+                        Console.WriteLine(measurement.station);
+                        model.Series.Add(AddFunctionSeries(measurement.temperature));
+                    }
+                }
+            }
 
             return model;
         }
 
         public static PlotModel RenderPressureChart()
         {
+            LoadData();
+
             var model = new PlotModel { Title = "Ciśnienie (hPa)" };
 
-            LinearAxis la = SetLinearAxis();
-            la.Minimum = 960;
-            la.Maximum = 1060;
-
-            model.Axes.Add(la);
+            SetLinearAxis(ref model, 960, 1060);
 
             model.Axes.Add(SetDateTimeAxis());
 
-            string valToConvert = data.cisnienie.Replace(".", ",");
-            double val = Convert.ToDouble(valToConvert);
-
-            FunctionSeries fs = new FunctionSeries();
-
-            fs.Points.Add(new DataPoint(DateTimeAxis.ToDouble(new DateTime(2021, 5, 18)), 978));
-            fs.Points.Add(new DataPoint(DateTimeAxis.ToDouble(new DateTime(2021, 5, 19)), 990));
-            fs.Points.Add(new DataPoint(DateTimeAxis.ToDouble(new DateTime(2021, 5, 20)), 1013));
-            fs.Points.Add(new DataPoint(DateTimeAxis.ToDouble(new DateTime(2021, 5, 21)), 1030));
-            fs.Points.Add(new DataPoint(DateTimeAxis.ToDouble(new DateTime(2021, 5, 22)), 970));
-            fs.Points.Add(new DataPoint(DateTimeAxis.ToDouble(new DateTime(2021, 5, 23)), 1000));
-            fs.Points.Add(new DataPoint(DateTimeAxis.ToDouble(new DateTime(2021, 5, 24)), 998));
-            fs.Points.Add(new DataPoint(DateTimeAxis.ToDouble(midnight), val));
-
-            model.Series.Add(fs);
+            if (measurements != null)
+            {
+                foreach (var measurement in measurements)
+                {
+                    if (measurement.station == data.stacja)
+                    {
+                        model.Series.Add(AddFunctionSeries(measurement.pressure));
+                    }
+                }
+            }
 
             return model;
         }
 
         public static PlotModel RenderMoistureChart()
         {
+            LoadData();
+
             var model = new PlotModel { Title = "Wilgotność (%)" };
 
-            LinearAxis la = SetLinearAxis();
-            la.Minimum = 30;
-            la.Maximum = 80;
-
-            model.Axes.Add(la);
+            SetLinearAxis(ref model, 0, 100, 20);
 
             model.Axes.Add(SetDateTimeAxis());
 
-            string valToConvert = data.wilgotnosc_wzgledna.Replace(".", ",");
-            double val = Convert.ToDouble(valToConvert);
-
-            FunctionSeries fs = new FunctionSeries();
-
-            fs.Points.Add(new DataPoint(DateTimeAxis.ToDouble(new DateTime(2021, 5, 18)), 45));
-            fs.Points.Add(new DataPoint(DateTimeAxis.ToDouble(new DateTime(2021, 5, 19)), 49));
-            fs.Points.Add(new DataPoint(DateTimeAxis.ToDouble(new DateTime(2021, 5, 20)), 50));
-            fs.Points.Add(new DataPoint(DateTimeAxis.ToDouble(new DateTime(2021, 5, 21)), 48));
-            fs.Points.Add(new DataPoint(DateTimeAxis.ToDouble(new DateTime(2021, 5, 22)), 38));
-            fs.Points.Add(new DataPoint(DateTimeAxis.ToDouble(new DateTime(2021, 5, 23)), 55));
-            fs.Points.Add(new DataPoint(DateTimeAxis.ToDouble(new DateTime(2021, 5, 24)), 60));
-            fs.Points.Add(new DataPoint(DateTimeAxis.ToDouble(midnight), val));
-
-            model.Series.Add(fs);
+            if (measurements != null)
+            {
+                foreach (var measurement in measurements)
+                {
+                    if (measurement.station == data.stacja)
+                    {
+                        model.Series.Add(AddFunctionSeries(measurement.moisture));
+                    }
+                }
+            }
 
             return model;
         }
 
         public static PlotModel RenderWindSpeedChart()
         {
+            LoadData();
+
             var model = new PlotModel { Title = "Prędkość wiatru (Beaufort)" };
 
-            LinearAxis la = SetLinearAxis();
-            la.MajorStep = 3;
-            la.Minimum = 0;
-            la.Maximum = 12;
-
-            model.Axes.Add(la);
+            SetLinearAxis(ref model, 0, 12, 3);
 
             model.Axes.Add(SetDateTimeAxis());
 
-            string valToConvert = data.predkosc_wiatru.Replace(".", ",");
-            double val = Convert.ToDouble(valToConvert);
-
-            FunctionSeries fs = new FunctionSeries();
-
-            fs.Points.Add(new DataPoint(DateTimeAxis.ToDouble(new DateTime(2021, 5, 18)), 3));
-            fs.Points.Add(new DataPoint(DateTimeAxis.ToDouble(new DateTime(2021, 5, 19)), 3));
-            fs.Points.Add(new DataPoint(DateTimeAxis.ToDouble(new DateTime(2021, 5, 20)), 6));
-            fs.Points.Add(new DataPoint(DateTimeAxis.ToDouble(new DateTime(2021, 5, 21)), 5));
-            fs.Points.Add(new DataPoint(DateTimeAxis.ToDouble(new DateTime(2021, 5, 22)), 5));
-            fs.Points.Add(new DataPoint(DateTimeAxis.ToDouble(new DateTime(2021, 5, 23)), 6));
-            fs.Points.Add(new DataPoint(DateTimeAxis.ToDouble(new DateTime(2021, 5, 24)), 8));
-            fs.Points.Add(new DataPoint(DateTimeAxis.ToDouble(midnight), val));
-
-            model.Series.Add(fs);
+            if (measurements != null)
+            {
+                foreach (var measurement in measurements)
+                {
+                    if (measurement.station == data.stacja)
+                    {
+                        model.Series.Add(AddFunctionSeries(measurement.windSpeed));
+                    }
+                }
+            }
 
             return model;
+        }
+
+        static FunctionSeries AddFunctionSeries(List<Measurement> data)
+        {
+            DateTime date = Convert.ToDateTime(data[0].day);
+            FunctionSeries fs = new FunctionSeries();
+
+            fs.Points.Add(new DataPoint(DateTimeAxis.ToDouble(date.AddHours(-3)), data[0].value));
+            for (int i = 0; i < data.Count; i++)
+            {
+                date = Convert.ToDateTime(data[i].day);
+                fs.Points.Add(new DataPoint(DateTimeAxis.ToDouble(date), data[i].value));
+            }
+
+            return fs;
         }
 
         static DateTimeAxis SetDateTimeAxis()
@@ -169,7 +167,7 @@ namespace pogoda.Services
             return dateTimeAxis;
         }
 
-        static LinearAxis SetLinearAxis()
+        static void SetLinearAxis(ref PlotModel model, int min, int max, int step = 10)
         {
             var linearAxis = new LinearAxis
             {
@@ -179,10 +177,12 @@ namespace pogoda.Services
                 MajorGridlineStyle = LineStyle.Dot,
                 MajorGridlineColor = OxyColors.LightGray,
                 MajorGridlineThickness = 2,
-                MajorStep = 10
+                MajorStep = step,
+                Minimum = min,
+                Maximum = max
             };
 
-            return linearAxis;
+            model.Axes.Add(linearAxis);
         }
     }
 }

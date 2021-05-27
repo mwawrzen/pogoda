@@ -20,7 +20,8 @@
 	</UserControl.DataContext>
 
 	<DockPanel>
-		<Button Content="Wyświetl aktualne dane"
+		<Button IsVisible="False"
+				Content="Wyświetl aktualne dane"
 				DockPanel.Dock="Bottom"
 				Foreground="#eeeeee"
 				Command="{Binding DisplayData}" />

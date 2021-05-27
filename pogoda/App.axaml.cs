@@ -22,9 +22,16 @@ namespace pogoda
             aTimer.Enabled = true;
         }
 
-        private void OnTimedEvent(object source, ElapsedEventArgs e)
+        private async void OnTimedEvent(object source, ElapsedEventArgs e)
         {
             currDate = currDate.AddSeconds(1);
+            if ((currDate.Minute == 30 || currDate.Minute == 36) && currDate.Second == 0)
+            {
+                DateService.CurrentDate = new DateTime(2021, 5, 28);
+                //await DateService.GetDate();
+                await DataService.GetWeather();
+                DatabaseService.SaveDataToDatabase();
+            }
         }
 
         public override void Initialize()
@@ -41,8 +48,7 @@ namespace pogoda
             currDate = DateService.CurrentDate;
             SetTimer();
 
-            if (DatabaseService.CheckIsEmpty())
-                DatabaseService.Initialize();
+            DatabaseService.SaveDataToDatabase();
 
             ChartService.SetMeasurements();
             ChartsViewModel.On.LoadData();

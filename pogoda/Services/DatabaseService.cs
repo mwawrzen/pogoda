@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 using pogoda.Models;
+using pogoda.ViewModels;
 
 namespace pogoda.Services
 {
@@ -11,13 +12,65 @@ namespace pogoda.Services
         static string Path = "database.json";
         static List<StationMeasurement>? measurementsFromFile;
 
-        public static bool CheckIsEmpty()
+        public static void SaveDataToDatabase()
         {
             string? data = File.ReadAllText(Path);
 
             if (data == "")
-                return true;
-            return false;
+            {
+                Console.WriteLine("INIT");
+                Initialize();
+            }
+                
+            else
+            {
+                Console.WriteLine("SAVE");
+                List<StationMeasurement> measurementList = Get();
+                var curr = DataService.DataList;
+
+                var dt = Convert.ToDateTime(DateService.CurrentDate);
+                dt = dt.AddDays(1);
+                string dtString = dt.ToString("yyyy-MM-dd");
+
+                for (int i = 0; i < measurementList.Count; i++)
+                {
+                    Console.WriteLine("LOOP");
+                    foreach (var item in measurementList[i].temperature)
+                    {
+                        if (dtString == item.day) //curr[0].data_pomiaru
+                            goto end;
+                            
+                    }
+
+                    Console.WriteLine("SAVING DATA");
+
+                    double temperature = Convert.ToDouble(curr[i].temperatura.Replace(".", ","));
+                    double wilgotnosc = Convert.ToDouble(curr[i].wilgotnosc_wzgledna.Replace(".", ","));
+                    double predkosc = Convert.ToDouble(curr[i].predkosc_wiatru.Replace(".", ","));
+                    double cisnienie = 0;
+                    
+                    if (curr[i].cisnienie != null)
+                        cisnienie = Convert.ToDouble(curr[i].cisnienie.Replace(".", ","));
+
+                    Measurement temperatureMeasurement = new Measurement { day = dtString, value = 34.5 };//temperature };
+                    Measurement pressureMeasurement = new Measurement { day = dtString, value = 1001.4 }; //cisnienie };
+                    Measurement moistureMeasurement = new Measurement { day = dtString, value = 48 };//wilgotnosc };
+                    Measurement windSpeedMeasurement = new Measurement { day = dtString, value = 2 };//predkosc };
+
+                    Console.WriteLine("Save data: " + measurementList[i].station);
+
+                    measurementList[i].temperature.Add(temperatureMeasurement);
+                    measurementList[i].pressure.Add(pressureMeasurement);
+                    measurementList[i].moisture.Add(moistureMeasurement);
+                    measurementList[i].windSpeed.Add(windSpeedMeasurement);
+
+                    end:
+                        continue;
+                }
+                
+
+                Save(measurementList);
+            }
         }
 
         public static void Initialize()
@@ -67,6 +120,10 @@ namespace pogoda.Services
             File.WriteAllText(Path, jsonString);
 
             Console.WriteLine("Pomyślnie zapisano dane");
+
+            ChartService.SetMeasurements();
+            ChartsViewModel.On.LoadData();
+            ChartsViewModel.On.LoadStationData();
         }
 
         public static List<StationMeasurement>? Get()

@@ -20,7 +20,8 @@
 	</UserControl.DataContext>
 
 	<DockPanel>
-		<Button Content="Wyświetl aktualne dane"
+		<Button IsVisible="False"
+				Content="Wyświetl aktualne dane"
 				DockPanel.Dock="Bottom"
 				Foreground="#eeeeee"
 				Command="{Binding DisplayData}" />
@@ -34,7 +35,7 @@
 					   RelativePanel.AlignRightWithPanel="True"
 					   Margin="15, Auto" />
 			
-			<DropDown x:Name="lista"
+			<DropDown x:Name="StationList"
 					  Items="{Binding Items}"
 					  RelativePanel.LeftOf="Date"
 					  Margin="6, Auto"
@@ -61,7 +62,7 @@
 				</ItemsControl.ItemTemplate>
 			</DropDown>
 
-			<TextBlock RelativePanel.LeftOf="lista"
+			<TextBlock RelativePanel.LeftOf="StationList"
 					   Foreground="#ffffff"
 					   Margin="15, Auto"
 					   Text="{Binding CurrentStationName}"/>

@@ -10,7 +10,7 @@ namespace pogoda.Services
     class DateService
     {
         const string API = "http://api.timezonedb.com/v2.1/get-time-zone?format=json&key=XXG0IRO9WXI6&by=zone&zone=Europe/Warsaw";
-        public static DateTime CurrentDate { get; set; } // private
+        public static DateTime CurrentDate { get; private set; }
 
         public static async Task<DateTime> GetDate()
         {

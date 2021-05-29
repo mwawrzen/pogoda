@@ -10,8 +10,6 @@ namespace pogoda.Services
     class ChartService
     {
         static Weather? data;
-        static DateTime date;
-        static DateTime midnight;
         static List<StationMeasurement>? measurements;
 
         public static void SetMeasurements()
@@ -19,16 +17,9 @@ namespace pogoda.Services
             measurements = DatabaseService.Get();
         }
 
-        public static void LoadData()
-        {
-            data = DataService.CurrentData;
-            date = DateService.CurrentDate;
-            midnight = new DateTime(date.Year, date.Month, date.Day, 0, 0, 0);
-        }
-
         public static PlotModel RenderTemperatureChart()
         {
-            LoadData();
+            data = DataService.CurrentData;
 
             var model = new PlotModel { Title = "Temperatura (\u2103)" };
 
@@ -53,7 +44,7 @@ namespace pogoda.Services
 
         public static PlotModel RenderPressureChart()
         {
-            LoadData();
+            data = DataService.CurrentData;
 
             var model = new PlotModel { Title = "Ciśnienie (hPa)" };
 
@@ -77,7 +68,7 @@ namespace pogoda.Services
 
         public static PlotModel RenderMoistureChart()
         {
-            LoadData();
+            data = DataService.CurrentData;
 
             var model = new PlotModel { Title = "Wilgotność (%)" };
 
@@ -101,7 +92,7 @@ namespace pogoda.Services
 
         public static PlotModel RenderWindSpeedChart()
         {
-            LoadData();
+            data = DataService.CurrentData;
 
             var model = new PlotModel { Title = "Prędkość wiatru (Beaufort)" };
 

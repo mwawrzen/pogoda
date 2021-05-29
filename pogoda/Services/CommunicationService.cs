@@ -6,7 +6,7 @@ namespace pogoda.Services
     public class CommunicationService
     {
 
-        private static String[]? Ports;
+        private static string[]? Ports;
         private static SerialPort? Port;
 
         public static void Connect(string message)

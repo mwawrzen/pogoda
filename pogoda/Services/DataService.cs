@@ -14,8 +14,6 @@ namespace pogoda.Services
         public static List<Weather> DataList = new List<Weather>();
         public static Weather? CurrentData = null;
 
-        static List<StationMeasurement> measurements;
-
         public static void DisplayAllData(Weather[] weather)
         {
             foreach (Weather w in weather)

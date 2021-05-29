@@ -49,6 +49,7 @@ namespace pogoda.Services
                     Measurement moistureMeasurement = new Measurement { day = weatherObject.data_pomiaru, value = moisture };
                     Measurement windSpeedMeasurement = new Measurement { day = weatherObject.data_pomiaru, value = windSpeed };
 
+                    measurementList[i].temperature.Add(temperatureMeasurement);
                     measurementList[i].pressure.Add(pressureMeasurement);
                     measurementList[i].moisture.Add(moistureMeasurement);
                     measurementList[i].windSpeed.Add(windSpeedMeasurement);
@@ -111,7 +112,7 @@ namespace pogoda.Services
             ChartsViewModel.On.LoadStationData();
         }
 
-        public static List<StationMeasurement>? Get()
+        public static List<StationMeasurement> Get()
         {
             string? data = File.ReadAllText(Path);
             measurementsFromFile = JsonSerializer.Deserialize<List<StationMeasurement>>(data);

@@ -4,6 +4,8 @@ Pogoda to aplikacja wykonana w ramach praktyk zawodowych przez uczniów krakowsk
 	Jej zadaniem jest wyświetlanie pobranych z zewnętrznego źródła danych w formie wykresów. Użytkownik ma możliwość
 	wyboru spośród 62 stacji meteorologicznych w Polsce. Aplikacja wyświetla dane dotyczące temperatury, ciśnienia,
 	prędkości wiatru oraz wilgotności. Poza wykresami, wyświetlane są również dane z ostatniego pomiaru wybranej stacji.
+	
+![app-main-view](readme-img/app-main-view.jpg)
 
 ## Moduły
 

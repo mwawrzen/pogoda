@@ -134,7 +134,29 @@ obsługuje zdarzenie wciśnięcia przycisku od wysłania danych na port szeregow
 
 ## Instalacja i uruchamianie
 
-in progress...
+### Przygotowanie aplikacji
+
+Aby aplikacja mogła działać w danym systemie, należy ją odpowiednio pod niego przygotować. W tym celu będąć w głównym katalogu projektu używamy polecenia:
+
+```bash
+dotnet publish "pogoda.csproj" -c release -f net5.0 -r <RID> --self-contained
+```
+
+<RID> - *Runtime Identifier* - informacje znajdziesz w [oficjalnej dokumentacji C#](https://docs.microsoft.com/pl-pl/dotnet/core/rid-catalog)
+
+Więcej informacji o poleceniu *dotnet* również znajduje się w [oficjalnej dokumentacji](https://docs.microsoft.com/pl-pl/dotnet/core/tools/dotnet-msbuild)
+
+### Instalacja .NET
+
+Do uruchomienia aplikacji w systemie będzie potrzebna zainstalowana [platforma .NET](https://docs.microsoft.com/pl-pl/dotnet/core/install/linux)
+
+### Uruchomienie aplikacji
+
+Znajdując się w głównym katalogu projektu wpisujemy polecenie:
+
+```bash
+dotnet pogoda.dll
+```
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)

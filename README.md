@@ -142,7 +142,7 @@ Aby aplikacja mogła działać w danym systemie, należy ją odpowiednio pod nie
 dotnet publish "pogoda.csproj" -c release -f net5.0 -r <RID> --self-contained
 ```
 
-<RID> - *Runtime Identifier* - informacje znajdziesz w [oficjalnej dokumentacji C#](https://docs.microsoft.com/pl-pl/dotnet/core/rid-catalog)
+'<RID>' - *Runtime Identifier* - informacje znajdziesz w [oficjalnej dokumentacji C#](https://docs.microsoft.com/pl-pl/dotnet/core/rid-catalog)
 
 Więcej informacji o poleceniu *dotnet* również znajduje się w [oficjalnej dokumentacji](https://docs.microsoft.com/pl-pl/dotnet/core/tools/dotnet-msbuild)
 

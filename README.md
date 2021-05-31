@@ -158,6 +158,12 @@ Znajdując się w głównym katalogu projektu wpisujemy polecenie:
 dotnet pogoda.dll
 ```
 
-## License
+## Autorzy
+
+### Dawid Młodzianowski
+### Kamil Gądek
+### Michał Wawrzeń
+
+## Licencja
 [MIT](https://choosealicense.com/licenses/mit/)
  
